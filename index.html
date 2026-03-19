@@ -4,76 +4,448 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Orbitron:wght@400;500&family=Source+Code+Pro:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Concílio Palaio – Polyograph</title>
   <style>
-    body {
+    :root {
+      --primary: #0ff;
+      --secondary: #f0f;
+      --dark-bg: #0d0d0d;
+      --darker-bg: #050505;
+      --text-light: #f0f0f0;
+      --text-dim: #aaa;
+      --ancient-gold: #d4af37;
+      --ancient-parchment: #f5e8c8;
+      --scrollbar-track: #111;
+      --scrollbar-thumb: #333;
+    }
+    
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0d0d0d;
-      color: #f0f0f0;
-      line-height: 1.6;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
       scroll-behavior: smooth;
     }
-    header {
-      background: linear-gradient(90deg, #0ff 0%, #f0f 100%);
-      color: #000;
-      padding: 3rem 1rem;
-      text-align: center;
+    
+    body {
+      font-family: 'Source Code Pro', monospace;
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
     }
+    
+    /* Efeito de partículas flutuantes */
+    #particles-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.3;
+    }
+    
+    /* Estilo do cabeçalho */
+    header {
+      background: linear-gradient(90deg, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
+      color: var(--text-light);
+      padding: 4rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
+      z-index: 0;
+    }
+    
     header h1 {
       font-family: 'UnifrakturCook', cursive;
       margin: 0;
-      font-size: 2.5rem;
-      text-shadow: 0 0 5px #0ff, 0 0 10px #f0f, 0 0 15px #0ff;
+      font-size: 3.5rem;
+      position: relative;
+      z-index: 1;
+      animation: titleGlow 4s infinite alternate;
     }
+    
+    .header-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 1;
+      color: var(--ancient-gold);
+      letter-spacing: 1px;
+    }
+    
+    .typing-effect {
+      border-right: 2px solid var(--primary);
+      animation: blinkCursor 0.7s infinite;
+      padding-right: 5px;
+    }
+    
     main {
       padding: 2rem;
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
+      position: relative;
     }
-    footer {
-      background-color: #111;
+    
+    /* Estilo das seções com animação de entrada */
+    section {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s, transform 0.8s;
       padding: 2rem;
+      background: rgba(13, 13, 13, 0.7);
+      border-radius: 10px;
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      animation: sectionScan 6s infinite;
+    }
+    
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    h2 {
+      font-family: 'Cinzel', serif;
+      color: var(--ancient-gold);
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.5s;
+    }
+    
+    h2:hover::after {
+      width: 100%;
+    }
+    
+    h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--secondary);
+      font-size: 1.5rem;
+      margin: 1.5rem 0 1rem;
+    }
+    
+    p {
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+    
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    li::before {
+      content: '▸';
+      color: var(--primary);
+      position: absolute;
+      left: 0;
+    }
+    
+    strong {
+      color: var(--ancient-gold);
+      font-weight: 700;
+    }
+    
+    /* Cards para os neologismos */
+    .neologisms-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .neologism-card {
+      background: rgba(20, 20, 20, 0.8);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .neologism-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.1);
+    }
+    
+    .neologism-card h4 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+    }
+    
+    /* Botões de navegação */
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .nav-btn {
+      background: transparent;
+      border: 1px solid var(--ancient-gold);
+      color: var(--ancient-gold);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .nav-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+      transition: left 0.5s;
+      z-index: -1;
+    }
+    
+    .nav-btn:hover {
+      color: var(--dark-bg);
+      background: var(--ancient-gold);
+      box-shadow: 0 0 15px var(--ancient-gold);
+    }
+    
+    .nav-btn:hover::before {
+      left: 100%;
+    }
+    
+    footer {
+      background-color: var(--darker-bg);
+      padding: 3rem 2rem;
       text-align: center;
       font-size: 0.9rem;
-      color: #aaa;
+      color: var(--text-dim);
+      border-top: 1px solid rgba(212, 175, 55, 0.3);
+      position: relative;
     }
-    footer a {
-      color: #0ff;
-      margin: 0 0.4rem;
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .footer-link {
+      color: var(--primary);
       text-decoration: none;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+      position: relative;
+      padding: 0.5rem;
     }
-    .glow {
-      text-shadow: 0 0 5px #0ff, 0 0 10px #f0f, 0 0 15px #0ff;
+    
+    .footer-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 1px;
+      background: var(--primary);
+      transition: all 0.3s;
+      transform: translateX(-50%);
     }
-    h2, h3 {
-      color: #ff00cc;
+    
+    .footer-link:hover {
+      color: var(--secondary);
+      transform: translateY(-3px);
     }
-    a:hover {
-      text-decoration: underline;
+    
+    .footer-link:hover::after {
+      width: 100%;
+    }
+    
+    .copyright {
+      margin-top: 2rem;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+    
+    /* Animações */
+    @keyframes titleGlow {
+      0%, 100% {
+        text-shadow: 0 0 5px var(--primary), 0 0 10px var(--secondary), 0 0 15px var(--primary);
+      }
+      50% {
+        text-shadow: 0 0 10px var(--secondary), 0 0 20px var(--primary), 0 0 30px var(--secondary);
+      }
+    }
+    
+    @keyframes blinkCursor {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: var(--primary); }
+    }
+    
+    @keyframes sectionScan {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    /* Responsividade */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .neologisms-container {
+        grid-template-columns: 1fr;
+      }
+      
+      section {
+        padding: 1.5rem;
+      }
+      
+      h2 {
+        font-size: 1.8rem;
+      }
+    }
+    
+    /* Barra de rolagem personalizada */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--scrollbar-track);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
     }
   </style>
 </head>
 <body>
+  <!-- Canvas para partículas flutuantes -->
+  <canvas id="particles-bg"></canvas>
+  
   <header>
-    <h1 class="glow">Concílio Palaio</h1>
-    <p>Um manifesto lexical pela Polyograph – Deep Polymath & Polyglot Hub</p>
+    <div class="header-overlay"></div>
+    <h1>Concílio Palaio</h1>
+    <p class="header-subtitle typing-effect" id="typing-subtitle">Um manifesto lexical pela Polyograph – Deep Polymath & Polyglot Hub</p>
+    <div class="nav-buttons">
+      <button class="nav-btn" onclick="scrollToSection('neologisms')">Neologismos</button>
+      <button class="nav-btn" onclick="scrollToSection('inspirations')">Inspirações</button>
+      <button class="nav-btn" onclick="scrollToSection('objectives')">Objetivos</button>
+      <button class="nav-btn" onclick="scrollToSection('structure')">Estrutura</button>
+    </div>
   </header>
+  
   <main>
-    <article>
-      <p>Estou cunhando dois pares de neologismos para expressar com liberdade lexical, exuberância morfológica e amplitude semântica, toda a minha paixão por esse ecossistema temático transversal e multidisciplinar: paleobibliofilia, paleolexicofilia, paleobibliosofia, paleolexicosofia.</p>
-      <p>Esse ecossistema temático transversal e multidisciplinar encontra acolhimento e abrigo institucional sob a rubrica de Concílio Palaio. Estamos inspirados pelos Povos do Livro, pelas literaturas talmúdica e corânica, pela patrística, pela teosofia, pela paleografia e pela paleo linguística.</p>
-
+    <section id="intro">
+      <article>
+        <p>Estou cunhando dois pares de neologismos para expressar com liberdade lexical, exuberância morfológica e amplitude semântica, toda a minha paixão por esse ecossistema temático transversal e multidisciplinar: <strong>paleobibliofilia</strong>, <strong>paleolexicofilia</strong>, <strong>paleobibliosofia</strong>, <strong>paleolexicosofia</strong>.</p>
+        <p>Esse ecossistema temático transversal e multidisciplinar encontra acolhimento e abrigo institucional sob a rubrica de Concílio Palaio. Estamos inspirados pelos Povos do Livro, pelas literaturas talmúdica e corânica, pela patrística, pela teosofia, pela paleografia e pela paleolinguística.</p>
+      </article>
+    </section>
+    
+    <section id="overview">
       <h2>Visão Geral</h2>
       <p>O Concílio Palaio é um espaço intelectual e cultural dedicado à celebração, investigação e perpetuação de um ecossistema temático transversal e multidisciplinar. Esse projeto se ancora em dois pilares centrais: o amor pelas palavras e pelos livros em suas manifestações mais antigas e a busca pela sabedoria que emerge dessas fontes. Com um olhar que combina tradição e inovação, articulamos as dimensões da paleobibliofilia, paleolexicofilia, paleobibliosofia e paleolexicosofia, conceitos criados para expressar a riqueza de nossas aspirações.</p>
-
+    </section>
+    
+    <section id="neologisms">
       <h2>Neologismos Fundamentais</h2>
-      <p><strong>Paleobibliofilia:</strong> A paixão pelos livros antigos e pelas tradições literárias ancestrais que moldaram os alicerces das civilizações.</p>
-      <p><strong>Paleolexicofilia:</strong> O amor pelos léxicos antigos, pelas palavras esquecidas e pelos idiomas que sustentaram as narrativas humanas.</p>
-      <p><strong>Paleobibliosofia:</strong> A reflexão filosófica sobre os textos antigos como fonte de sabedoria, ética e compreensão histórica.</p>
-      <p><strong>Paleolexicosofia:</strong> A investigação da sofisticação das palavras arcaicas e seus significados dentro de um contexto ético, metafísico e cultural.</p>
-
+      <div class="neologisms-container">
+        <div class="neologism-card">
+          <h4>Paleobibliofilia</h4>
+          <p>A paixão pelos livros antigos e pelas tradições literárias ancestrais que moldaram os alicerces das civilizações.</p>
+        </div>
+        <div class="neologism-card">
+          <h4>Paleolexicofilia</h4>
+          <p>O amor pelos léxicos antigos, pelas palavras esquecidas e pelos idiomas que sustentaram as narrativas humanas.</p>
+        </div>
+        <div class="neologism-card">
+          <h4>Paleobibliosofia</h4>
+          <p>A reflexão filosófica sobre os textos antigos como fonte de sabedoria, ética e compreensão histórica.</p>
+        </div>
+        <div class="neologism-card">
+          <h4>Paleolexicosofia</h4>
+          <p>A investigação da sofisticação das palavras arcaicas e seus significados dentro de um contexto ético, metafísico e cultural.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section id="inspirations">
       <h2>Inspirações Intelectuais</h2>
       <ul>
         <li>Os Povos do Livro: Judaísmo, Cristianismo e Islamismo, suas tradições escritas e diálogos teológicos.</li>
@@ -82,7 +454,9 @@
         <li>Teosofia: A busca por sabedoria divina em textos sagrados e filosóficos.</li>
         <li>Paleografia e Paleolinguística: O estudo de manuscritos antigos e línguas ancestrais para compreender os alicerces do pensamento humano.</li>
       </ul>
-
+    </section>
+    
+    <section id="objectives">
       <h2>Objetivos do Concílio Palaio</h2>
       <ul>
         <li>Preservação e Estudo</li>
@@ -90,13 +464,15 @@
         <li>Interdisciplinaridade</li>
         <li>Comunidade de Sabedoria</li>
       </ul>
-
+    </section>
+    
+    <section id="structure">
       <h2>Estrutura do Projeto</h2>
       <h3>Núcleos Temáticos</h3>
       <p><strong>Biblioteca Paleia:</strong> Um acervo digital e físico de textos e léxicos antigos, incluindo traduções e análises.</p>
       <p><strong>Laboratório Lexical:</strong> Espaço dedicado ao estudo de palavras arcaicas e construção de novos glossários temáticos.</p>
       <p><strong>Fórum de Sabedoria:</strong> Encontros para discussões interdisciplinares e diálogos filosóficos.</p>
-
+      
       <h3>Atividades Principais</h3>
       <ul>
         <li>Cursos introdutórios e avançados em paleobibliofilia e paleolexicofilia.</li>
@@ -104,14 +480,16 @@
         <li>Publicação de um periódico intitulado Anais do Concílio Palaio.</li>
         <li>Workshops sobre paleografia e paleolinguística.</li>
       </ul>
-
+      
       <h3>Eventos e Iniciativas</h3>
       <ul>
         <li>Conferência Anual do Concílio Palaio</li>
         <li>Clube de Leitura dos Povos do Livro</li>
         <li>Exposição itinerante de manuscritos e dicionários antigos</li>
       </ul>
-
+    </section>
+    
+    <section id="impact">
       <h2>Impacto e Legado</h2>
       <p>O Concílio Palaio pretende ser uma referência mundial em estudos transversais e multidisciplinares sobre livros e palavras antigas. Ele buscará:</p>
       <ul>
@@ -119,30 +497,222 @@
         <li>Construir pontes entre tradições filosóficas e religiosas.</li>
         <li>Inspirar uma nova geração de pensadores e estudiosos a explorar a sabedoria ancestral.</li>
       </ul>
-
-      <p>— em São Paulo capital.</p>
-    </article>
+      <p style="margin-top: 2rem; text-align: right; font-style: italic;">— em São Paulo capital.</p>
+    </section>
   </main>
+  
   <footer>
     <p>Siga o Polyograph nas plataformas:</p>
-    <p>
-      <a href="https://polyograph.renderforestsites.com/" target="_blank">Site</a>
-      <a href="https://www.facebook.com/Polyograph/" target="_blank">Facebook</a>
-      <a href="https://medium.com/@polyographbr" target="_blank">Medium</a>
-      <a href="https://github.com/polyograph" target="_blank">GitHub</a>
-      <a href="https://x.com/polyographbr" target="_blank">X / Twitter</a>
-      <a href="https://substack.com/@polyographdeeppolyglothub" target="_blank">Substack</a>
-      <a href="https://www.youtube.com/@PolyographDeepPolyglotHub" target="_blank">YouTube</a>
-    </p>
-    <p>&copy; 2025 Guilherme Gonçalves Machado • Polyograph Deep Polymath & Polyglot Hub</p>
+    <div class="footer-links">
+      <a href="https://polyograph.renderforestsites.com/" target="_blank" class="footer-link"><i class="fas fa-globe"></i> Site</a>
+      <a href="https://www.facebook.com/Polyograph/" target="_blank" class="footer-link"><i class="fab fa-facebook"></i> Facebook</a>
+      <a href="https://medium.com/@polyographbr" target="_blank" class="footer-link"><i class="fab fa-medium"></i> Medium</a>
+      <a href="https://github.com/polyograph" target="_blank" class="footer-link"><i class="fab fa-github"></i> GitHub</a>
+      <a href="https://x.com/polyographbr" target="_blank" class="footer-link"><i class="fab fa-twitter"></i> Twitter</a>
+      <a href="https://substack.com/@polyographdeeppolyglothub" target="_blank" class="footer-link"><i class="fas fa-newspaper"></i> Substack</a>
+      <a href="https://www.youtube.com/@PolyographDeepPolyglotHub" target="_blank" class="footer-link"><i class="fab fa-youtube"></i> YouTube</a>
+    </div>
+    <p class="copyright">&copy; 2025 Guilherme Gonçalves Machado • Polyograph Deep Polymath & Polyglot Hub</p>
   </footer>
+  
   <script>
+    // Sistema de partículas flutuantes
+    const canvas = document.getElementById('particles-bg');
+    const ctx = canvas.getContext('2d');
+    
+    // Ajustar canvas para o tamanho da tela
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    
+    // Criar partículas
+    const particles = [];
+    const particleCount = 150;
+    
+    // Símbolos antigos para as partículas
+    const ancientSymbols = ['𓀀', '𓀁', '𓀂', '𓀃', '𓀄', '𓀅', '𓀆', '𓀇', '𓀈', '𓀉', 
+                           'α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι', 'κ',
+                           'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י'];
+    
+    class Particle {
+      constructor() {
+        this.symbol = ancientSymbols[Math.floor(Math.random() * ancientSymbols.length)];
+        this.size = Math.random() * 20 + 10;
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.opacity = Math.random() * 0.5 + 0.1;
+        this.rotation = Math.random() * 360;
+        this.rotationSpeed = Math.random() * 0.5 - 0.25;
+        this.floatOffset = Math.random() * 100;
+      }
+      
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.rotation += this.rotationSpeed;
+        
+        // Efeito de flutuação suave
+        this.y += Math.sin(Date.now() * 0.001 + this.floatOffset) * 0.1;
+        
+        // Reposicionar partículas que saem da tela
+        if (this.x < -this.size) this.x = canvas.width + this.size;
+        if (this.x > canvas.width + this.size) this.x = -this.size;
+        if (this.y < -this.size) this.y = canvas.height + this.size;
+        if (this.y > canvas.height + this.size) this.y = -this.size;
+      }
+      
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation * Math.PI / 180);
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = '#d4af37';
+        ctx.font = `${this.size}px 'Cinzel', serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(this.symbol, 0, 0);
+        ctx.restore();
+      }
+    }
+    
+    // Inicializar partículas
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+    
+    // Animar partículas
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      
+      requestAnimationFrame(animateParticles);
+    }
+    
+    animateParticles();
+    
+    // Efeito de digitação no subtítulo
+    const subtitle = document.getElementById('typing-subtitle');
+    const originalText = subtitle.textContent;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 100;
+    
+    function typeEffect() {
+      const currentText = originalText.substring(0, charIndex);
+      subtitle.textContent = currentText;
+      subtitle.classList.add('typing-effect');
+      
+      if (!isDeleting && charIndex < originalText.length) {
+        charIndex++;
+        typingSpeed = 100;
+      } else if (isDeleting && charIndex > 0) {
+        charIndex--;
+        typingSpeed = 50;
+      }
+      
+      // Mudar direção
+      if (!isDeleting && charIndex === originalText.length) {
+        isDeleting = true;
+        typingSpeed = 1500; // Pausa antes de apagar
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        typingSpeed = 500; // Pausa antes de digitar novamente
+      }
+      
+      setTimeout(typeEffect, typingSpeed);
+    }
+    
+    // Iniciar efeito de digitação após um breve delay
+    setTimeout(() => {
+      subtitle.textContent = '';
+      typeEffect();
+    }, 1000);
+    
+    // Scroll reveal animation
+    const sections = document.querySelectorAll('section');
+    
+    function revealSections() {
+      const windowHeight = window.innerHeight;
+      const revealPoint = 150;
+      
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        
+        if (sectionTop < windowHeight - revealPoint) {
+          section.classList.add('visible');
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', revealSections);
+    revealSections(); // Revelar seções visíveis no carregamento
+    
+    // Navegação suave para seções
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        window.scrollTo({
+          top: section.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    }
+    
+    // Efeito de hover nos cards de neologismos
+    const neologismCards = document.querySelectorAll('.neologism-card');
+    
+    neologismCards.forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+        this.style.boxShadow = '0 15px 30px rgba(0, 255, 255, 0.2)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+        this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.5)';
+      });
+    });
+    
+    // Efeito de gradiente animado no header
     const header = document.querySelector('header');
     let hue = 0;
-    setInterval(() => {
-      hue = (hue + 1) % 360;
-      header.style.background = `linear-gradient(90deg, hsl(${hue},100%,60%) 0%, hsl(${(hue+180)%360},100%,60%) 100%)`;
-    }, 60);
+    
+    function animateHeaderGradient() {
+      hue = (hue + 0.5) % 360;
+      header.style.background = `
+        linear-gradient(
+          90deg, 
+          hsla(${hue}, 100%, 50%, 0.1) 0%, 
+          hsla(${(hue + 180) % 360}, 100%, 50%, 0.1) 100%
+        )
+      `;
+      requestAnimationFrame(animateHeaderGradient);
+    }
+    
+    animateHeaderGradient();
+    
+    // Efeito de brilho nos links do footer
+    const footerLinks = document.querySelectorAll('.footer-link');
+    
+    footerLinks.forEach(link => {
+      link.addEventListener('mouseenter', function() {
+        this.style.textShadow = '0 0 8px currentColor';
+      });
+      
+      link.addEventListener('mouseleave', function() {
+        this.style.textShadow = 'none';
+      });
+    });
   </script>
 </body>
 </html>
