@@ -126,11 +126,12 @@ npm start
 ## 👥 Comunidade
 
 ### Redes e Plataformas
-- **Site Oficial**: [polyograph.renderforestsites.com](https://polyograph.renderforestsites.com/)
+- **Site Oficial**: [polyograph.hubstry.dev](https://polyograph.hubstry.dev/)
+- **Hubstry Deep Tech**: [hubstry.dev](https://hubstry.dev/) · [Institucional](https://institucional.hubstry.dev/) · [Manifesto](https://manifesto.hubstry.dev/)
 - **GitHub**: [github.com/polyograph](https://github.com/polyograph)
 - **Medium**: [@polyographbr](https://medium.com/@polyographbr)
 - **Substack**: [substack.com/@polyographdeeppolyglothub](https://substack.com/@polyographdeeppolyglothub)
-- **YouTube**: [@PolyographDeepPolyglotHub](https://www.youtube.com/@PolyographDeepPolyglotHub)
+- **YouTube**: [@polyographbr](https://www.youtube.com/@polyographbr)
 
 ### Encontros Presenciais
 - Reuniões mensais em São Paulo
